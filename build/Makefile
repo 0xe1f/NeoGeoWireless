@@ -25,9 +25,6 @@ AVRSZ=avr-size
 CC=avr-gcc
 CPP=avr-g++
 
-DEP_TOOLSET=$(patsubst %.c, %.o, $(wildcard avrtoolset/*.c))
-DEP_RF24=rf24/utility/atmega328p/spi_wrapper.o rf24/RF24.o
-
 INCLUDE=-Iavrtoolset
 DEFINE=-DF_CPU=8000000UL -DATMEGA328P -DBAUD=$(BAUD)
 CFLAGS=-Wall -Os -mmcu=$(DEVICE) -ffunction-sections -fdata-sections -flto
@@ -35,7 +32,7 @@ CPPFLAGS=$(CFLAGS) -w -std=gnu++11 -fno-threadsafe-statics
 LDFLAGS=-flto -mmcu=$(DEVICE)
 ADFLAGS=-p$(DEVICE) -c$(PROGRAMMER) -P$(PORT) -b$(BAUD) -v
 
-all: transmitter.hex receiver.hex snes_rx.hex test.hex
+all: snes_rx.hex
 
 # fuse calc: https://www.engbedded.com/fusecalc/
 writefuses:
@@ -47,7 +44,7 @@ dumpeeprom:
 avrterm:
 	$(AVRDD) $(ADFLAGS) -nt
 
-installsnesrx: snes_rx.hex
+install: snes_rx.hex
 	$(AVRDD) $(ADFLAGS) -Uflash:w:$<:i
 
 %.hex: %.elf
@@ -56,10 +53,7 @@ installsnesrx: snes_rx.hex
 	$(AVRCP) -O ihex -R .eeprom $< $@
 	$(AVRSZ) --format=avr --mcu=$(DEVICE) $<
 
-snes_rx.elf: snes_rx.o
-	$(CC) $(LDFLAGS) $^ -o $@
-
-%.elf: %.o main.o $(DEP_TOOLSET) $(DEP_RF24)
+%.elf: %.o
 	$(CC) $(LDFLAGS) $^ -o $@
 
 %.o: %.c

@@ -1,11 +1,11 @@
 NeoGeoWireless
 ====
 
-NeoGeoWireless implements a wireless Neo Geo controller on top of
-a cheap aftermarket 2.4 GHz SNES Controller.  
-It works by converting the SNES controller signals (that would
-normally go to the SNES) to the Neo-Geo, in the process adding
-features, like Turbo and Macro button support.
+NeoGeoWireless is a wireless Neo Geo controller, built on top of a cheap
+aftermarket 2.4 GHz SNES Controller.  
+It works by converting the SNES controller signals (that would normally go to
+the SNES) to format compatible with Neo-Geo, in the process adding features,
+like Turbo and Macro button support.
 
 ## Requirements
 
@@ -13,13 +13,12 @@ features, like Turbo and Macro button support.
 3x 0.1uF Capacitors  
 LED (to display turbo status)  
 Atmega328P  
-Neo-Geo controller DIN connector, hopefully cannibalized from NG Controller extension cords  
-Custom PCB [schematics](schematics/rx-snes/) for the receiver add-on board (KiCad, [PDF](docs/schematic.pdf))  
+Neo-Geo controller DIN connector, hopefully cannibalized from NG Controller
+extension cords  
+Custom PCB schematics for the receiver add-on board
+([KiCad](schematics/rx-snes/), [PDF](docs/schematic.pdf))  
 [3D-printed case](stl/NGRcvrSNES.stl) ([slightly roomier version](stl/NGRcvrSNESDev.stl) for prototyping)  
-
-## Firmware
-
-[Firmware](build/) for the Atmega328P (run `make installsnesrx`)  
+[Firmware](build/) for the Atmega328P (`make writefuses && make install`)  
 
 ## Examples
 

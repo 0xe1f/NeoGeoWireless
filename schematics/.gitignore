@@ -1,0 +1,8 @@
+fp-info-cache
+*-bak
+fp-lib-table
+Gerber
+_autosave-*
+*.bck
+*-cache.lib
+*-backups/
